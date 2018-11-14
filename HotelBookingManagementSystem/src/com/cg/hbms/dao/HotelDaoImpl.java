@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cg.hbms.bean.Hotel;
 import com.cg.hbms.bean.Room;
@@ -181,21 +183,21 @@ public class HotelDaoImpl implements IHotelDao {
 		connection = JdbcUtility.getConnection();
 		Room room = null;
 		try {
-			preparedStatement = connection.prepareStatement(IQueryConstants.Query9);
+			preparedStatement = connection
+					.prepareStatement(IQueryConstants.Query9);
 			preparedStatement.setString(1, hotelId);
 			preparedStatement.setString(2, roomId);
-			ResultSet resultSet =preparedStatement.executeQuery();
-			if(resultSet.next())
-			{
-				String hotelId1 = resultSet.getString(1) ;
-				String roomId1 = resultSet.getString(2) ;
-				String roomNumber = resultSet.getString(3) ;
-				String roomType = resultSet.getString(4) ;
-				double perDayRate = resultSet.getDouble(5) ;
-				String availability = resultSet.getString(6) ;
-				room = new Room(hotelId1, roomId1, roomNumber, roomType, perDayRate, availability);
-			}
-			else{
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				String hotelId1 = resultSet.getString(1);
+				String roomId1 = resultSet.getString(2);
+				String roomNumber = resultSet.getString(3);
+				String roomType = resultSet.getString(4);
+				double perDayRate = resultSet.getDouble(5);
+				String availability = resultSet.getString(6);
+				room = new Room(hotelId1, roomId1, roomNumber, roomType,
+						perDayRate, availability);
+			} else {
 				System.err.println("Room Does not exist!!");
 			}
 		} catch (SQLException e) {
@@ -206,16 +208,49 @@ public class HotelDaoImpl implements IHotelDao {
 
 	@Override
 	public int deleteRoomById(String roomId) throws HMSExceptions {
-		connection=JdbcUtility.getConnection();
+		connection = JdbcUtility.getConnection();
 		int delete;
 		try {
-			preparedStatement = connection.prepareStatement(IQueryConstants.Query10);
-			preparedStatement.setString(1,roomId);
+			preparedStatement = connection
+					.prepareStatement(IQueryConstants.Query10);
+			preparedStatement.setString(1, roomId);
 			delete = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new HMSExceptions(HMSExceptionList.Error6);
 		}
 		return delete;
+	}
+
+	@Override
+	public List<Hotel> getAllHotels() throws HMSExceptions {
+		connection = JdbcUtility.getConnection();
+		List<Hotel> list = new ArrayList<Hotel>();
+		try {
+			preparedStatement = connection
+					.prepareStatement(IQueryConstants.Query11);
+			ResultSet resultSet =preparedStatement.executeQuery();
+			while(resultSet.next()){
+				String hotelID = resultSet.getString(1);
+				String hotelCity = resultSet.getString(2);
+				String hotelName = resultSet.getString(3);
+				String address = resultSet.getString(4);
+				String hotelDescription = resultSet.getString(5);
+				Double rate = resultSet.getDouble(6);
+				String phoneNumber1 = resultSet.getString(7);
+				String phoneNumber2 = resultSet.getString(8);
+				String rating = resultSet.getString(9);
+				String eMail = resultSet.getString(10);
+				String fax = resultSet.getString(11);
+				Hotel hotel = new Hotel(hotelID,hotelCity, hotelName, address,
+						hotelDescription, rate, phoneNumber1, phoneNumber2,
+						rating, eMail, fax);
+				list.add(hotel);
+			}
+			
+		} catch (SQLException e) {
+			throw new HMSExceptions(HMSExceptionList.Error6);
+		}
+		return list;
 	}
 
 }

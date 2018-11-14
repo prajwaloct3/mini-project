@@ -1,5 +1,7 @@
 package com.cg.hbms.service;
 
+import java.util.List;
+
 import com.cg.hbms.bean.Hotel;
 import com.cg.hbms.bean.Room;
 import com.cg.hbms.dao.HotelDaoImpl;
@@ -41,6 +43,10 @@ public class HotelServiceImpl implements IHotelService {
 	@Override
 	public int deleteRoomById(String roomId) throws HMSExceptions{
 		return dao.deleteRoomById(roomId);
+	}
+	@Override
+	public List<Hotel> getAllHotels() throws HMSExceptions {
+		return dao.getAllHotels();
 	}
 
 }

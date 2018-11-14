@@ -20,4 +20,6 @@ public interface IQueryConstants {
 
 	String Query10 = "DELETE FROM room_table WHERE ROOM_ID=?";
 
+	String Query11 = "SELECT * FROM hotel";
+
 }

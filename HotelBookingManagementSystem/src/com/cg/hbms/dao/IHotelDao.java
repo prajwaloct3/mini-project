@@ -1,5 +1,7 @@
 package com.cg.hbms.dao;
 
+import java.util.List;
+
 import com.cg.hbms.bean.Hotel;
 import com.cg.hbms.bean.Room;
 import com.cg.hbms.exceptions.HMSExceptions;
@@ -21,5 +23,7 @@ public interface IHotelDao {
 	Room getRoomDetials(String hotelId, String roomId)throws HMSExceptions;
 
 	int deleteRoomById(String roomId)throws HMSExceptions;
+
+	List<Hotel> getAllHotels()throws HMSExceptions;
 
 }

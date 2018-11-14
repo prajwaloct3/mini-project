@@ -1,6 +1,7 @@
 package com.cg.hbms.presentation;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.cg.hbms.bean.Hotel;
@@ -192,9 +193,26 @@ public class AdminConsole {
 		case 3:{
 			/*
 			 * 
-			 * case 3 for main case
+			 * case 3 for main case View List of Hotels
 			 * 
 			 */
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("~~~~~~~~Hotel List~~~~~~~~~");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			List<Hotel> hotels = service.getAllHotels();
+			for (Hotel hotel : hotels) {
+				System.out.println("Hotel ID: "+hotel.getHotelId());
+				System.out.println("Hotel Name: "+hotel.getHotelName());
+				System.out.println("Hotel City: "+hotel.getHotelCity());
+				System.out.println("Hotel Address: "+hotel.getAddress());
+				System.out.println("Hotel Description: "+hotel.getHotelDescription());
+				System.out.println("Hotel Rating: "+hotel.getRating());
+				System.out.println("Hotel Rate: "+hotel.getRate());
+				System.out.println("Hotel Phone Number: "+hotel.getPhoneNumber1());
+				System.out.println("Hotel Email: "+hotel.geteMail());
+				System.out.println();
+				System.out.println();
+			}
 			
 		}
 		default:
